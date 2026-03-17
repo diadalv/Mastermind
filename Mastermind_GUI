@@ -1,0 +1,111 @@
+import tkinter as tk
+from tkinter import ttk
+
+# --------------------------------
+# ΒΑΣΙΚΟ ΠΑΡΑΘΥΡΟ
+# --------------------------------
+root = tk.Tk()
+root.title("Mastermind")
+root.geometry("1100x680")
+root.configure(bg="#1e1e1e")
+root.resizable(False, False)
+
+# --------------------------------
+# ΧΡΩΜΑΤΑ / ΓΡΑΜΜΑΤΟΣΕΙΡΕΣ
+# --------------------------------
+bg_main = "#111111"
+fg_main = "white"
+border_color = "white"
+
+title_font = ("Consolas", 22, "bold")
+label_font = ("Courier New", 16)
+option_font = ("Courier New", 14)
+button_font = ("Courier New", 15)
+
+# --------------------------------
+# ΜΕΤΑΒΛΗΤΕΣ ΕΠΙΛΟΓΩΝ
+# --------------------------------
+role_var = tk.StringVar(value="Codemaker")
+colors_var = tk.StringVar(value="6")
+length_var = tk.StringVar(value="4")
+repeat_var = tk.BooleanVar(value=True)
+
+# --------------------------------
+# ΚΕΝΤΡΙΚΟ ΠΛΑΙΣΙΟ
+# --------------------------------
+main_frame = tk.Frame(root, bg=bg_main, highlightbackground=border_color, highlightthickness=2)
+main_frame.place(x=20, y=20, width=1060, height=560)
+
+# --------------------------------
+# ΤΙΤΛΟΣ
+# --------------------------------
+title_label = tk.Label(main_frame, text="MASTERMIND", bg=bg_main, fg=fg_main, font=title_font)
+title_label.pack(pady=(18, 10))
+
+# γραμμή κάτω από τίτλο
+top_line = tk.Frame(main_frame, bg=border_color, height=2)
+top_line.pack(fill="x", padx=10, pady=(0, 25))
+
+# --------------------------------
+# ΚΕΝΤΡΙΚΗ ΠΕΡΙΟΧΗ ΡΥΘΜΙΣΕΩΝ
+# --------------------------------
+content_frame = tk.Frame(main_frame, bg=bg_main)
+content_frame.pack(expand=True)
+
+# Ρόλος παίκτη
+role_title = tk.Label(content_frame, text="Ρόλος παίκτη", bg=bg_main, fg=fg_main, font=label_font)
+role_title.pack(pady=(0, 12))
+
+role_frame = tk.Frame(content_frame, bg=bg_main)
+role_frame.pack(pady=(0, 30))
+
+codemaker_rb = tk.Radiobutton(role_frame, text="Codemaker", variable=role_var, value="Codemaker", bg=bg_main, fg=fg_main, selectcolor=bg_main, activebackground=bg_main, activeforeground=fg_main, font=option_font)
+codemaker_rb.pack(side="left", padx=40)
+
+codebreaker_rb = tk.Radiobutton(role_frame, text="Codebreaker", variable=role_var, value="Codebreaker", bg=bg_main, fg=fg_main, selectcolor=bg_main, activebackground=bg_main, activeforeground=fg_main, font=option_font)
+codebreaker_rb.pack(side="left", padx=40)
+
+# Πλήθος χρωμάτων
+colors_title = tk.Label(content_frame, text="Πλήθος χρωμάτων", bg=bg_main, fg=fg_main, font=label_font)
+colors_title.pack(pady=(0, 10))
+
+colors_combo = ttk.Combobox(content_frame, textvariable=colors_var, values=["4", "5", "6", "7", "8"], width=5, font=("Courier New", 14), state="readonly", justify="center")
+colors_combo.pack(pady=(0, 30))
+
+# Μήκος κωδικού
+length_title = tk.Label(content_frame, text="Μήκος κωδικού", bg=bg_main, fg=fg_main, font=label_font)
+length_title.pack(pady=(0, 10))
+
+length_combo = ttk.Combobox(content_frame, textvariable=length_var, values=["3", "4", "5", "6"], width=5, font=("Courier New", 14), state="readonly", justify="center")
+length_combo.pack(pady=(0, 30))
+
+# Επαναλήψεις χρώματος
+repeat_title = tk.Label(content_frame, text="Επαναλήψεις χρώματος", bg=bg_main, fg=fg_main, font=label_font)
+repeat_title.pack(pady=(0, 10))
+
+repeat_cb = tk.Checkbutton(content_frame, text="Επιτρέπονται", variable=repeat_var, bg=bg_main, fg=fg_main, selectcolor=bg_main, activebackground=bg_main, activeforeground=fg_main, font=option_font)
+repeat_cb.pack(pady=(0, 45))
+
+# Κουμπί έναρξης
+start_button = tk.Button(content_frame, text="  Έναρξη Παιχνιδιού  ", bg=bg_main, fg=fg_main, activebackground="#2a2a2a", activeforeground=fg_main, relief="solid", bd=1, font=button_font)
+start_button.pack()
+
+# --------------------------------
+# ΚΑΤΩ ΓΡΑΜΜΗ
+# --------------------------------
+bottom_line = tk.Frame(main_frame, bg=border_color, height=2)
+bottom_line.pack(fill="x", padx=10, side="bottom", pady=(0, 18))
+
+# --------------------------------
+# ΚΑΤΩ ΚΟΥΜΠΙΑ
+# --------------------------------
+bottom_buttons_frame = tk.Frame(main_frame, bg=bg_main)
+bottom_buttons_frame.pack(fill="x", side="bottom", padx=40, pady=(0, 20))
+
+history_button = tk.Button(bottom_buttons_frame, text="  History  ", bg=bg_main, fg=fg_main, activebackground="#2a2a2a", activeforeground=fg_main, relief="solid", bd=1, font=button_font)
+history_button.pack(side="left")
+
+how_to_play_button = tk.Button(bottom_buttons_frame, text="  How to Play  ", bg=bg_main, fg=fg_main, activebackground="#2a2a2a", activeforeground=fg_main, relief="solid", bd=1, font=button_font)
+how_to_play_button.pack(side="right")
+
+root.mainloop()

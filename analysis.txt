@@ -1,0 +1,62 @@
+Inputs που θα χρειαστουμε για να συνδεσουμε με backend 
+Boolean: Code Maker/ Code Breaker 
+Boolean: Αν επιτρεπονται επαναληψεις ή οχι 
+Int: Πλήθος χρωμάτων ( 5 - 10 )
+Int: Μήκος συνδιασμού ( 3 - 5 ) 
+
+
+-----------------------------------------------------------
+|                  (HUMAN) CODEMAKER FLOW
+-----------------------------------------------------------
+
+1. Δημιουργία χρωματικού κώδικα ## Λίστα color_code
+2. Δημιουργία λίστας με όλες τις πιθανές λύσεις βάσει των παραμέτρων 
+	generate_color_combinations(int = total_colors, boolean = repeat_color)
+3. Μέχρι να ολοκληρωθούν οι επιτρεπτές προσπάθειες επίλυσης:## 10 
+	1. ΤΥΧΑΙΑ επιλογή από τη λίστα των πιθανών λύσεων χρωματικού κώδικα ## round_answer // χρήση len (length) στη λίστα color_combinations
+	2. Εμφάνιση της επιλόγης στην οθόνη ## return list
+	3. Απαντηση από τον codemaker το πλήθος των σωστών στη σωστη θεση και αυτων σε λαθος θεση ## answered_colors =  Λίστα [σωστή θέση, λάθος θέση]
+	4. Έλεγχος αν η επιλογή ισούται με τον κώδικα 
+		ΝΑΙ =	1. εμφανιση μηνύματος ήττας του codemaker
+			2. έξοδος στη κεντρική οθόνη
+		ΟΧΙ = 	ΣΥΝΕΧΕΙΑ
+	5. evaluate_color_combination(color_combinations, round_answer, answered_colors) ## διαγράφει απο λίστα με χρώματα (5.2) 
+		1.ΓΙΑ ΚΑΘΕ μια πιθανη λύση της λίστας 
+			1. Δημιουργία απάντηση_temp με χρωματικο κώδικα τη πιθανη λύση και για κώδικα την επιλογή 
+			2. Αν η απαντηση_temp ισούται με την απαντηση 
+				ΝΑΙ:	ΣΥΝΕΧΕΙΑ (Κραταμε την πιθανη λύση) 
+				ΟΧΙ:	αφαιρουμε την πιθανη λυση από τη λίστα
+4. validate_answered_colors(color_code, round_answer) // Returns Λίστα [σωστή θέση, λάθος θέση]
+4.1. final_validation(color_code, answered_colors_breaker, answered_colors_maker) 
+	Για κάθε μια απαντηση του codemaker:
+		Έλεγχος αν η απαντηση ήταν σωστή:
+			ΟΧΙ = 	1. Εμφάνιση μηνυματος ήττας του codemaker ##backend returns boolean true = win, false = lose  
+				2. έξοδος στη κεντρική οθόνη
+	Ολες σωστές = 	1. εμφάνιση μηνύματος νίκης του codemaker
+			2. έξοδος στη κεντρική οθόνη
+			
+
+-----------------------------------------------------------
+|                 (HUMAN) CODEBRAKER FLOW
+-----------------------------------------------------------
+
+1. Δημιουργία χρωματικού κώδικα βάσει των παραμέτρων // generate_color_combinations + τυχαία επιλογή ## random?
+2. Μέχρι να ολοκληρωθούν οι επιτρεπτές προσπάθειες επίλυσης:
+	1. προσπάθεια επίλυσης από τον codebreaker(HUMAN) ## Λίστα answered_colors_breaker
+	2. Έλεγχος αν η επιλογή ισούται με τον κώδικα ## if/else backend returns boolean true = win, false = lose
+		ΝΑΙ =	1. Εμφάνιση του χρωματικού κώδικα
+			2. εμφανιση μηνύματος νίκης του codebreaker
+			3. έξοδος στη κεντρική οθόνη
+		ΟΧΙ = ΣΥΝΕΧΕΙΑ
+	3. Απαντηση από τον codemaker το πλήθος των σωστων στη σωστη θεση και αυτων σε λαθος θεση ##validate_answered_colors(color_code, answered_colors_breaker, answered_colors_maker)
+3. Εμφάνιση του χρωματικού κώδικα ## backend returns color_code list 
+4. Εμφάνιση μηνύματος ηττας του codebreaker
+5. Εξοδος στη κεντρική οθόνη
+
+
+Functions:
+
+0. main.py ## Xenia
+1. generate_color_combinations() ## Sotiris
+2. evaluate_color_combination() ## Diana
+3. validate_answered_colors() & final_validation() # Έλεγχος ανα round και final ## Christos
